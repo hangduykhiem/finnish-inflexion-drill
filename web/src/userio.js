@@ -92,13 +92,22 @@ class UserTextInput extends React.Component {
 
     handleKeyDown = (event) => {
         if (event.key === 'Enter') {
-            this.handleEnterKey()
-        } else if (event.key === ',') {
-            this.handleCommaKey()
-        } else if (event.key === '.') {
-            this.handleDotKey()
-        } else if (event.key === '/' || event.key === '-') {
-            this.handleAnswerKeys()
+            this.handleEnterKey();
+        } 
+    }
+
+    handleTextChange = (event) => {
+        var inputText = event.target.value
+        this.setState({ value: inputText.replace(/[^A-Za-zäöÄÖšž ]/g, "") }); 
+        
+        if (inputText.includes("/") || inputText.includes("-")) {
+            this.handleAnswerKeys();
+        } else if (inputText.includes(",")) {
+            console.log("Handle Comma Key")
+            this.handleCommaKey();
+        } else if (inputText.includes(".")) {
+            console.log("Handle Dot Key")
+            this.handleDotKey();
         }
     }
 
@@ -109,7 +118,7 @@ class UserTextInput extends React.Component {
                     placeholder={"type '" + this.props.currentWord + "' in the form specified"}
                     autoCapitalize="off" autoComplete="off" spellCheck="false" autoCorrect="off"
                     onKeyDown={this.handleKeyDown}
-                    onChange={(evt) => { this.setState({ value: evt.target.value.replace(/[^A-Za-zäöÄÖšž ]/g, "") }); }}
+                    onChange={ this.handleTextChange }
                     ref={this.props.reference} autoFocus value={this.state.value} />
             </div>
         )
