@@ -57,41 +57,58 @@ class UserTextInput extends React.Component {
             });
     }
 
-    handleKeyPress = (event) => {
-        if (event.key === 'Enter') {
-            if (this.props.currentAnswer.includes(this.state.value.toLowerCase())) {
-                this.props.onCorrectAnswer();
-                this.flicker("green-bg");
-                this.setState({ value: "" });
-            } else {
-                this.flicker("red-bg");
-            }
-        } else if (event.key === ',') {
-            let newValue = "";
-            for (let i = 0; i <= Math.min(this.state.value.length, this.props.currentAnswer[0].length); ++i) {
-                if (i === this.props.currentAnswer[0].length) {
-                    newValue = this.props.currentAnswer[0];
-                    break;
-                }
-                else if (this.state.value.len < i || this.state.value[i] !== this.props.currentAnswer[0][i]) {
-                    newValue = this.props.currentAnswer[0].slice(0, i + 1);
-                    break;
-                }
-            }
-            this.setState({ value: newValue });
-        } else if (event.key === '.') {
-            this.setState({ value: this.props.currentAnswer[0] });
-        } else if (event.key === '/' || event.key === '-') {
+    handleEnterKey = () => {
+        if (this.props.currentAnswer.includes(this.state.value.toLowerCase())) {
             this.props.onCorrectAnswer();
+            this.flicker("green-bg");
+            this.setState({ value: "" });
+        } else {
+            this.flicker("red-bg");
         }
     }
+    
+    handleCommaKey = () => {
+        let newValue = "";
+        for (let i = 0; i <= Math.min(this.state.value.length, this.props.currentAnswer[0].length); ++i) {
+            if (i === this.props.currentAnswer[0].length) {
+                newValue = this.props.currentAnswer[0];
+                break;
+            }
+            else if (this.state.value.len < i || this.state.value[i] !== this.props.currentAnswer[0][i]) {
+                newValue = this.props.currentAnswer[0].slice(0, i + 1);
+                break;
+            }
+        }
+        this.setState({ value: newValue });
+    }
+
+    handleDotKey = () => {
+        this.setState({ value: this.props.currentAnswer[0] });
+    }
+    
+    handleAnswerKeys = () => {
+        this.props.onCorrectAnswer();
+    }
+
+    handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            this.handleEnterKey()
+        } else if (event.key === ',') {
+            this.handleCommaKey()
+        } else if (event.key === '.') {
+            this.handleDotKey()
+        } else if (event.key === '/' || event.key === '-') {
+            this.handleAnswerKeys()
+        }
+    }
+
     render() {
         return (
             <div className="word-input-flex col-12">
                 <input type="text" className={"word-input " + this.state.textInputBG}
                     placeholder={"type '" + this.props.currentWord + "' in the form specified"}
                     autoCapitalize="off" autoComplete="off" spellCheck="false" autoCorrect="off"
-                    onKeyPress={this.handleKeyPress}
+                    onKeyDown={this.handleKeyDown}
                     onChange={(evt) => { this.setState({ value: evt.target.value.replace(/[^A-Za-zäöÄÖšž ]/g, "") }); }}
                     ref={this.props.reference} autoFocus value={this.state.value} />
             </div>
