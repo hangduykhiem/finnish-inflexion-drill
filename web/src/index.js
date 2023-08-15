@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from "react-dom/client";
 import Nouns from './nouns'
 import Verbs from './verbs'
 import About from './about'
@@ -8,10 +8,10 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route,
   Link,
-  Redirect, 
+  Navigate, 
 } from "react-router-dom";
 const nounPath = process.env.PUBLIC_URL + "/nouns"
 const verbPath = process.env.PUBLIC_URL + "/verbs"
@@ -37,17 +37,18 @@ const routing = (
           </li>
         </ul>
       </nav>
-      <Switch>
-        <Route exact path={process.env.PUBLIC_URL+"/"}>{<Redirect to={nounPath} />}</Route>
-        <Route path={nounPath} component={Nouns} />
-        <Route path={verbPath} component={Verbs} />
-        <Route path={aboutPath} component={About} />
-        <Route component={Notfound} />
-      </Switch>
+      <Routes>
+        <Route exact path={process.env.PUBLIC_URL+"/"} element={<Navigate to={nounPath} />}/>
+        <Route path={nounPath} element={<Nouns />} />
+        <Route path={verbPath} element={<Verbs />}  />
+        <Route path={aboutPath} element={<About />} />
+        <Route element={<Notfound />} />
+      </Routes>
     </div>
   </Router>
 )
-ReactDOM.render(routing, document.getElementById('root'))
+const root = createRoot(document.getElementById("root"));
+root.render(routing)
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

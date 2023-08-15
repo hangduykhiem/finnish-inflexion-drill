@@ -90,7 +90,7 @@ class UserTextInput extends React.Component {
             <div className="word-input-flex col-12">
                 <input type="text" className={"word-input " + this.state.textInputBG}
                     placeholder={"type '" + this.props.currentWord + "' in the form specified"}
-                    autocapitalize="off" autocomplete="off" spellcheck="false" autocorrect="off"
+                    autoCapitalize="off" autoComplete="off" spellCheck="false" autoCorrect="off"
                     onKeyPress={this.handleKeyPress}
                     onChange={(evt) => { this.setState({ value: evt.target.value.replace(/[^A-Za-zäöÄÖšž ]/g, "") }); }}
                     ref={this.props.reference} autoFocus value={this.state.value} />
