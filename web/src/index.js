@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import Nouns from './nouns'
 import Verbs from './verbs'
 import About from './about'
+import HowTo from './how_to'
 import Notfound from './404'
 import './index.css';
 import * as serviceWorker from './serviceWorker';
@@ -11,11 +12,12 @@ import {
   Routes,
   Route,
   Link,
-  Navigate, 
+  Navigate,
 } from "react-router-dom";
 const nounPath = process.env.PUBLIC_URL + "/nouns"
 const verbPath = process.env.PUBLIC_URL + "/verbs"
 const aboutPath = process.env.PUBLIC_URL + "/about"
+const howToPath = process.env.PUBLIC_URL + "/howto"
 
 
 const routing = (
@@ -35,13 +37,17 @@ const routing = (
           <li className="nav-item">
             <Link className="nav-link" to={aboutPath}>About</Link>
           </li>
+          <li className="nav-item">
+            <Link className="nav-link" to={howToPath}>How to</Link>
+          </li>
         </ul>
       </nav>
       <Routes>
-        <Route exact path={process.env.PUBLIC_URL+"/"} element={<Navigate to={nounPath} />}/>
+        <Route exact path={process.env.PUBLIC_URL + "/"} element={<Navigate to={nounPath} />} />
         <Route path={nounPath} element={<Nouns />} />
-        <Route path={verbPath} element={<Verbs />}  />
+        <Route path={verbPath} element={<Verbs />} />
         <Route path={aboutPath} element={<About />} />
+        <Route path={howToPath} element={<HowTo />} />
         <Route element={<Notfound />} />
       </Routes>
     </div>

@@ -3,13 +3,6 @@ import React from 'react'
 
 class UserIO extends React.Component {
     render() {
-        // function computeFontSize(text, defaultSize, textSpace) {
-        //     const l = text.length;
-        //     const coeffs = [0.885, -0.0811]
-        //     let resizedFontSize = Math.max(Math.min(defaultSize, (textSpace / l + coeffs[1]) / coeffs[0]), defaultSize / 4);
-        //     // console.log("Approximate width default "+(coeffs[0]*defaultSize+coeffs[1])*l+" changed to size "+resizedFontSize+"px and resulting size is "+(coeffs[0]*resizedFontSize+coeffs[1])*l)
-        //     return resizedFontSize;
-        // }
         return (
             <div className="container">
                 <div /*class="card gray"*/>
@@ -66,7 +59,7 @@ class UserTextInput extends React.Component {
             this.flicker("red-bg");
         }
     }
-    
+
     handleCommaKey = () => {
         let newValue = "";
         for (let i = 0; i <= Math.min(this.state.value.length, this.props.currentAnswer[0].length); ++i) {
@@ -85,7 +78,7 @@ class UserTextInput extends React.Component {
     handleDotKey = () => {
         this.setState({ value: this.props.currentAnswer[0] });
     }
-    
+
     handleAnswerKeys = () => {
         this.props.onCorrectAnswer();
     }
@@ -93,13 +86,13 @@ class UserTextInput extends React.Component {
     handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             this.handleEnterKey();
-        } 
+        }
     }
 
     handleTextChange = (event) => {
         var inputText = event.target.value
-        this.setState({ value: inputText.replace(/[^A-Za-zäöÄÖšž ]/g, "") }); 
-        
+        this.setState({ value: inputText.replace(/[^A-Za-zäöÄÖšž ]/g, "") });
+
         if (inputText.includes("/") || inputText.includes("-")) {
             this.handleAnswerKeys();
         } else if (inputText.includes(",")) {
@@ -118,19 +111,12 @@ class UserTextInput extends React.Component {
                     placeholder={"type '" + this.props.currentWord + "' in the form specified"}
                     autoCapitalize="off" autoComplete="off" spellCheck="false" autoCorrect="off"
                     onKeyDown={this.handleKeyDown}
-                    onChange={ this.handleTextChange }
+                    onChange={this.handleTextChange}
                     ref={this.props.reference} autoFocus value={this.state.value} />
             </div>
         )
     }
 }
-
-// function computeFontSize(text, defaultSize, textSpace) {
-//     const l = text.length;
-//     const coeffs = [0, 0]
-//     let resizedFontSize = Math.max(Math.min(defaultSize, (textSpace / l + coeffs[1])), defaultSize / 4);
-//     return resizedFontSize;
-// }
 
 function computeFontSize(text, defaultSize, textSpace) {
     const l = text.length;

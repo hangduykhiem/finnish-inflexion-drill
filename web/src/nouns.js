@@ -2,7 +2,6 @@ import React from 'react'
 import WordManager from './word_manager'
 import kotusNouns from './kotus_nouns.json';
 import topNouns from './top_nouns.json'
-import Info from './info';
 
 const ALWAYS_INVALID = -1;
 const plurality = ['singular', 'plural'];
@@ -10,10 +9,10 @@ const cases = ['nominative', 'genitive', 'partitive',
     'inessive (-ssA)', 'elative (-stA)', 'illative (-hVn)',
     'adessive (-llA)', 'ablative (-ltA)', 'allative (-lle)',
     'essive (-nA)', 'translative (-ksi)',
-    'abessive (-ttA)','instructive (-in)', 'comitative (-ne)'];
+    'abessive (-ttA)', 'instructive (-in)', 'comitative (-ne)'];
 //nominative sg is trivial and accusative officially does not exist
 // and instructive+comitative is only plural
-const validSgCases = [ALWAYS_INVALID, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,ALWAYS_INVALID, ALWAYS_INVALID];
+const validSgCases = [ALWAYS_INVALID, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ALWAYS_INVALID, ALWAYS_INVALID];
 const validPlCases = cases.map(() => 1)
 
 // const cases_singular = [...cases.slice(2, 12), cases[13]]
@@ -41,7 +40,6 @@ class Nouns extends React.Component {
             indexes = [indexes];
         }
         const afterChange = this.state.formsOn.map((el, i) => indexes.includes(i) && el !== -1 ? (!el) : el);
-        // console.log(indexes)
         if (afterChange.map(el => ((el && el !== -1) ? el : 0)).reduce((a, b) => a + b) > 0) {
             this.setState({
                 formsOn: afterChange
@@ -50,7 +48,6 @@ class Nouns extends React.Component {
         } else {
             alert('At least one form has to be selected!');
         }
-        // console.log(afterChange);
     }
 
     render() {
@@ -63,9 +60,6 @@ class Nouns extends React.Component {
         )
     }
 }
-
-
-
 
 function IndeterminateCheckbox(props) {
     let checked = props.truthArray.reduce((a, b) => a && b)
@@ -124,7 +118,6 @@ function NounSettings(props) {
             let offset = singular ? 0 : cases.length;
             let casesOn = singular ? singularCasesOn : pluralCasesOn;
             let allIndexes = [...Array(cases.length).keys()].map(a => a + offset);
-            // console.log(allIndexes)
             if ((singular && (allSingularOn || allSingularOff)) || (!singular && (allPluralOn || allPluralOff))) {
                 props.onClick(allIndexes);
             } else {
@@ -142,34 +135,26 @@ function NounSettings(props) {
 
     return (
         <div className="container">
-            <div className="row card-flex align-items-start">
-                <div className="col-md-6 no-l-padding settings">
-                    <div className="row">
-                        <div className="col-6">
-                            {//TODO: settings image
-                            }
-                        </div>
-                        <div className="col-3 control-group">
-                            <input type="checkbox" id="sg_cb" onChange={switchAll(true)}
-                                checked={allSingularOn} />
-                            <label htmlFor="sg_cb">&nbsp;Singular</label>
-                        </div>
-                        <div className="col-3">
-                            <input type="checkbox" id="pl_cb" onChange={switchAll(false)}
-                                checked={allPluralOn} />
-                            <label htmlFor="pl_cb">&nbsp;Plural</label>
-                        </div>
+            <div className="mx-auto settings">
+                <div className="row">
+                    <div className="col-6">
+                        {//TODO: settings image
+                        }
                     </div>
-
-
-                    {props.forms.slice(0, cases.length).map((form, index) => <CheckboxRow key={form}
-                        form={form.slice("Singular ".length)} onClick={props.onClick} index={index}
-                        onSingular={singularCasesOn[index]} onPlural={pluralCasesOn[index]} />)}
+                    <div className="col-3 control-group">
+                        <input type="checkbox" id="sg_cb" onChange={switchAll(true)}
+                            checked={allSingularOn} />
+                        <label htmlFor="sg_cb">&nbsp;Singular</label>
+                    </div>
+                    <div className="col-3">
+                        <input type="checkbox" id="pl_cb" onChange={switchAll(false)}
+                            checked={allPluralOn} />
+                        <label htmlFor="pl_cb">&nbsp;Plural</label>
+                    </div>
                 </div>
-
-                <div className="col-md-6 no-r-padding">
-                    <Info />
-                </div>
+                {props.forms.slice(0, cases.length).map((form, index) => <CheckboxRow key={form}
+                    form={form.slice("Singular ".length)} onClick={props.onClick} index={index}
+                    onSingular={singularCasesOn[index]} onPlural={pluralCasesOn[index]} />)}
             </div>
         </div>
     )

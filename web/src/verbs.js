@@ -2,7 +2,6 @@ import React from 'react'
 import WordManager from './word_manager'
 import kotusVerbs from './kotus_verbs.json';
 import topVerbs from './top_verbs.json'
-import Info from './info';
 
 const persons = ["1st singular", "2nd singular", "3rd singular", "1st plural", "2nd plural", "3rd plural", "passive"];
 const tensesMoods = ["present", "perfect", "past", "pluperfect", "conditional",
@@ -386,10 +385,6 @@ function VerbSettings(props) {
                         <br />
                         {negativeRadios}
                     </div>
-                </div>
-
-                <div className="col-lg-6 no-r-padding">
-                    <Info />
                 </div>
             </div>
         </div>
