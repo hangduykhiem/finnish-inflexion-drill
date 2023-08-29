@@ -200,12 +200,15 @@ code {
         height: 160px;
         border-radius: var(--border-rad);
     }
+
     .rcard {
         border-radius: var(--border-rad);
     }
+
     .rcard-image {
         border-radius: var(--border-rad) 0 0 var(--border-rad);
     }
+
     .ltext {
         line-height: 160px;
     }
@@ -215,6 +218,7 @@ code {
     .word-card.blue {
         display: none;
     }
+
     .word-card.yellow {
         display: none;
     }
@@ -234,13 +238,14 @@ code {
     .no-l-padding {
         padding-right: 0;
     }
+
     .no-r-padding {
         padding-left: 0;
     }
 }
 
 .about {
-    margin-top:30px;
+    margin-top: 30px;
     max-width: 800px;
     font-family: Roboto;
     background: white;

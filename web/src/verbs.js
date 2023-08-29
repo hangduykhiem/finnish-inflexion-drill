@@ -306,13 +306,6 @@ class Verbs extends React.Component {
     }
 
     render() {
-        // console.log(topVerbs["kuulua"]["forms"])
-        // let text = []
-        // for (let i = 0; i < 160; ++i) {
-        //     text.push(generateVerbForm(topVerbs["kuulua"]["forms"], i));
-        // }
-        // console.log(text)
-        // text.map((el, index) => (<p>{el}</p>))
         return (
             <div>
                 <WordManager top={topVerbs} kotus={kotusVerbs} forms={this.forms} generateForm={generateVerbForm}
@@ -335,16 +328,6 @@ function VerbSettings(props) {
         tensesColumn.push(<div><input type="checkbox" id={checkboxIds[i]} key={checkboxes[i]} checked={props.checkboxStates[i]}
             onChange={() => props.onClick(i, !props.checkboxStates[i])} /> <label htmlFor={checkboxIds[i]}>{checkboxes[i]}</label></div>, <br />);
     }
-
-    // const passiveRadios = (
-    //     <div onChange={(event) => props.changeRadio("passivitySettings", event.target.value)}>
-    //         <input type="radio" value="active" name="passivity" /> Only active
-    //         <br />
-    //         <input type="radio" value="passive" name="passivity" /> Only passive
-    //         <br />
-    //         <input type="radio" value="both" name="passivity" /> Active and Passive
-    //     </div>
-    // );
 
     const passiveTexts = ["active", "passive", "both"]
     const passiveLabels = ["only active", "only passive", "active and passive"]
@@ -376,14 +359,16 @@ function VerbSettings(props) {
 
     return (
         <div className="container">
-            <div className="row card-flex align-items-start">
-                <div className="col-lg-6 no-l-padding">
-                    <div className="card settings">
-                        {tensesColumn}
-                        <br />
-                        {passiveRadios}
-                        <br />
-                        {negativeRadios}
+            <div className="row card-flex">
+                <div className="col card settings">
+                    <div className="row">
+                        <div className="col-6">
+                            {tensesColumn}
+                        </div>
+                        <div className="col-6">
+                            {passiveRadios}
+                            {negativeRadios}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -135,26 +135,33 @@ function NounSettings(props) {
 
     return (
         <div className="container">
-            <div className="mx-auto settings">
-                <div className="row">
-                    <div className="col-6">
-                        {//TODO: settings image
-                        }
+            <div className="row card-flex">
+                <div className="col settings">
+                    <div className="row">
+                        <div className="col-6" />
+                        <div className="col-3 control-group">
+                            <input type="checkbox" id="sg_cb" onChange={switchAll(true)}
+                                checked={allSingularOn} />
+                            <label htmlFor="sg_cb">&nbsp;Singular</label>
+                        </div>
+                        <div className="col-3">
+                            <input type="checkbox" id="pl_cb" onChange={switchAll(false)}
+                                checked={allPluralOn} />
+                            <label htmlFor="pl_cb">&nbsp;Plural</label>
+                        </div>
                     </div>
-                    <div className="col-3 control-group">
-                        <input type="checkbox" id="sg_cb" onChange={switchAll(true)}
-                            checked={allSingularOn} />
-                        <label htmlFor="sg_cb">&nbsp;Singular</label>
-                    </div>
-                    <div className="col-3">
-                        <input type="checkbox" id="pl_cb" onChange={switchAll(false)}
-                            checked={allPluralOn} />
-                        <label htmlFor="pl_cb">&nbsp;Plural</label>
-                    </div>
+                    {props.forms.slice(0, cases.length)
+                        .map((form, index) =>
+                            <CheckboxRow key={form}
+                                form={form.slice("Singular ".length)}
+                                onClick={props.onClick}
+                                index={index}
+                                onSingular={singularCasesOn[index]}
+                                onPlural={pluralCasesOn[index]}
+                            />
+                        )
+                    }
                 </div>
-                {props.forms.slice(0, cases.length).map((form, index) => <CheckboxRow key={form}
-                    form={form.slice("Singular ".length)} onClick={props.onClick} index={index}
-                    onSingular={singularCasesOn[index]} onPlural={pluralCasesOn[index]} />)}
             </div>
         </div>
     )

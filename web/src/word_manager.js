@@ -37,7 +37,6 @@ class WordManager extends React.Component {
         }
         const wordIndex = Math.floor(Math.random() * currentData.keys.length);
         const word = currentData.keys[wordIndex];
-        // console.log(this.props.formsOn, this.props.formsOn.map(el => (el && el !== -1 ? el : 0)))
         const formsOnCount = this.props.formsOn.map(el => (el && el !== -1 ? el : 0)).reduce((a, b) => a + b);
         let formSubsetIndex = Math.floor(Math.random() * formsOnCount);
         let trueFormIndex = 0;
@@ -54,14 +53,11 @@ class WordManager extends React.Component {
             trueFormIndex++;
         }
 
-        // console.log(formsOnCount, trueFormIndex);
-
         let currentEntry = currentData.data[word];
-        // console.log(currentEntry)
         this.setState({
             currentWord: word,
             currentFormName: this.props.forms[trueFormIndex],
-            currentAnswer: this.props.generateForm(currentEntry.forms,trueFormIndex),
+            currentAnswer: this.props.generateForm(currentEntry.forms, trueFormIndex),
             currentTranslation: currentEntry.tran,
             currentKotusType: currentEntry.kotus
         })
@@ -74,9 +70,14 @@ class WordManager extends React.Component {
 
     render() {
         return (
-            <UserIO onCorrectAnswer={this.onCorrectAnswer} currentWord={this.state.currentWord}
-                currentAnswer={this.state.currentAnswer} currentTranslation={this.state.currentTranslation}
-                currentKotusType={this.state.currentKotusType} currentFormName={this.state.currentFormName} />
+            <UserIO
+                onCorrectAnswer={this.onCorrectAnswer}
+                currentWord={this.state.currentWord}
+                currentAnswer={this.state.currentAnswer}
+                currentTranslation={this.state.currentTranslation}
+                currentKotusType={this.state.currentKotusType}
+                currentFormName={this.state.currentFormName}
+            />
         )
     }
 }
