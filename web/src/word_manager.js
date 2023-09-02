@@ -14,6 +14,9 @@ class WordManager extends React.Component {
             currentTranslation: "",
             currentKotusType: "",
             currentFormName: "",
+            currentWordHelpUsed: false,
+            helpUsageNumber: 0,
+            correctAnswerNumber: 0,
         };
     }
 
@@ -65,19 +68,56 @@ class WordManager extends React.Component {
     }
 
     onCorrectAnswer = () => {
+        if (!this.state.currentWordHelpUsed) {
+            this.setState({
+                correctAnswerNumber: this.state.correctAnswerNumber + 1
+            });
+        }
+        this.setState({
+            currentWordHelpUsed: false,
+        })
         this.generateNewWord();
+    }
+
+    onSkipAnswer = () => {
+        this.generateNewWord();
+    }
+
+    onHelpUse = () => {
+        if (!this.state.currentWordHelpUsed) {
+            this.setState({
+                currentWordHelpUsed: true,
+                helpUsageNumber: this.state.helpUsageNumber + 1
+            })
+        }
+    }
+
+    getCorrectPercentage = () => {
+        var total = this.state.correctAnswerNumber + this.state.helpUsageNumber
+        if (total === 0) {
+            return "Not yet available"
+        }
+
+        var percentage = (this.state.correctAnswerNumber / total).toFixed(2)
+        return "" + percentage + "%"
     }
 
     render() {
         return (
-            <UserIO
-                onCorrectAnswer={this.onCorrectAnswer}
-                currentWord={this.state.currentWord}
-                currentAnswer={this.state.currentAnswer}
-                currentTranslation={this.state.currentTranslation}
-                currentKotusType={this.state.currentKotusType}
-                currentFormName={this.state.currentFormName}
-            />
+            <div>
+                <p style={{ textAlign: "center" }}>Correct answers: {this.state.correctAnswerNumber} - Help used: {this.state.helpUsageNumber}</p>
+                <p style={{ textAlign: "center" }}>Correct percentage: {this.getCorrectPercentage()}</p>
+                <UserIO
+                    onCorrectAnswer={this.onCorrectAnswer}
+                    onSkipAnswer={this.onSkipAnswer}
+                    onHelpUse={this.onHelpUse}
+                    currentWord={this.state.currentWord}
+                    currentAnswer={this.state.currentAnswer}
+                    currentTranslation={this.state.currentTranslation}
+                    currentKotusType={this.state.currentKotusType}
+                    currentFormName={this.state.currentFormName}
+                />
+            </div >
         )
     }
 }

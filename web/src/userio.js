@@ -8,7 +8,10 @@ class UserIO extends React.Component {
                 <div /*class="card gray"*/>
                     <div className="row card-flex">
                         <div className="col-sm-12 col-xl-6 no-l-padding" id="left">
-                            <FinnishWord finnish_word={this.props.currentWord} fontSize={computeFontSize(this.props.currentWord, 5, 40)} />
+                            <FinnishWord
+                                finnish_word={this.props.currentWord}
+                                fontSize={computeFontSize(this.props.currentWord, 5, 40)}
+                            />
                         </div>
 
                         <div className="col-sm-12 col-xl-6 no-r-padding" id="right">
@@ -23,7 +26,11 @@ class UserIO extends React.Component {
 
                 </div>
                 <div className="row card-flex input-row">
-                    <UserTextInput onCorrectAnswer={this.props.onCorrectAnswer} currentWord={this.props.currentWord}
+                    <UserTextInput
+                        onCorrectAnswer={this.props.onCorrectAnswer}
+                        onSkipAnswer={this.props.onSkipAnswer}
+                        currentWord={this.props.currentWord}
+                        onHelpUse={this.props.onHelpUse}
                         currentAnswer={this.props.currentAnswer} />
                 </div>
             </div>
@@ -72,16 +79,18 @@ class UserTextInput extends React.Component {
                 break;
             }
         }
+        this.props.onHelpUse()
         this.setState({ value: newValue });
     }
 
     handleCorrectAnswerKey = () => {
+        this.props.onHelpUse()
         this.setState({ value: this.props.currentAnswer[0] });
     }
 
     handleNextWordKey = () => {
         this.setState({ value: "" })
-        this.props.onCorrectAnswer();
+        this.props.onSkipAnswer();
     }
 
     handleKeyDown = (event) => {
