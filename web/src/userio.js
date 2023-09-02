@@ -60,7 +60,7 @@ class UserTextInput extends React.Component {
         }
     }
 
-    handleCommaKey = () => {
+    handleNextLetterKey = () => {
         let newValue = "";
         for (let i = 0; i <= Math.min(this.state.value.length, this.props.currentAnswer[0].length); ++i) {
             if (i === this.props.currentAnswer[0].length) {
@@ -75,11 +75,12 @@ class UserTextInput extends React.Component {
         this.setState({ value: newValue });
     }
 
-    handleDotKey = () => {
+    handleCorrectAnswerKey = () => {
         this.setState({ value: this.props.currentAnswer[0] });
     }
 
-    handleAnswerKeys = () => {
+    handleNextWordKey = () => {
+        this.setState({ value: "" })
         this.props.onCorrectAnswer();
     }
 
@@ -93,14 +94,12 @@ class UserTextInput extends React.Component {
         var inputText = event.target.value
         this.setState({ value: inputText.replace(/[^A-Za-zäöÄÖšž ]/g, "") });
 
-        if (inputText.includes("/") || inputText.includes("-")) {
-            this.handleAnswerKeys();
-        } else if (inputText.includes(",")) {
-            console.log("Handle Comma Key")
-            this.handleCommaKey();
-        } else if (inputText.includes(".")) {
-            console.log("Handle Dot Key")
-            this.handleDotKey();
+        if (inputText.includes("3")) {
+            this.handleNextWordKey();
+        } else if (inputText.includes("1")) {
+            this.handleNextLetterKey();
+        } else if (inputText.includes("2")) {
+            this.handleCorrectAnswerKey();
         }
     }
 

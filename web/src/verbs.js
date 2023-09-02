@@ -362,11 +362,14 @@ function VerbSettings(props) {
             <div className="row card-flex">
                 <div className="col card settings">
                     <div className="row">
-                        <div className="col-6">
+                        <div className="col-sm">
                             {tensesColumn}
                         </div>
-                        <div className="col-6">
+                        <div className="col-sm">
+                            <p>Active & Passive settings</p>
                             {passiveRadios}
+                            <div style={{ marginBottom: "2em" }} />
+                            <p>Possitive and Negative settings</p>
                             {negativeRadios}
                         </div>
                     </div>
