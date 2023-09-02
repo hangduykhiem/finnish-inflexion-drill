@@ -267,6 +267,7 @@ class Verbs extends React.Component {
         let newFormsOn = this.computeFormsOn(newTenses, this.passivity, this.negativity);
         if (newFormsOn.map(el => ((el && el !== -1) ? el : 0)).reduce((a, b) => a + b) > 0) {
             this.tenses = newTenses;
+            localStorage.setItem("tenseSettings", JSON.stringify(newTenses))
             this.setState({ formsOn: newFormsOn });
         } else {
             alert('At least one form has to be selected!');
